@@ -11,7 +11,7 @@ const char* password = "macrol3ios";
 #define APPID   "WebApp"
 #define KEY     "kuZyWfJrig1mb7E"
 #define SECRET  "ZNMyde0RNtPR04SUz2kLS0woM"
-#define ALIAS   "esp8266-sensor-json"
+#define ALIAS   "esp8266-sensor-json" // Change to serial number device
 WiFiClient client;
 int timer = 0, state_connect = 0;
 MicroGear microgear(client);
@@ -35,7 +35,7 @@ void onFoundgear(char *attribute, uint8_t* msg, unsigned int msglen) {
     Serial.print("Found new member --> ");
     for (int i=0; i<msglen; i++)
         Serial.print((char)msg[i]);
-    Serial.println();  
+    Serial.println();
 }
 void onLostgear(char *attribute, uint8_t* msg, unsigned int msglen) {
     Serial.print("Lost member --> ");
@@ -53,7 +53,7 @@ void setup() {
   microgear.on(PRESENT,onFoundgear);
   microgear.on(ABSENT,onLostgear);
   microgear.on(CONNECTED,onConnected);
-  
+
   Serial.begin(115200);
   Serial.println("Starting...");
   if (WiFi.begin(ssid, password)) {
@@ -63,19 +63,19 @@ void setup() {
       }
   }
   Serial.println();
-  Serial.println("WiFi connected");  
+  Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
   microgear.init(KEY,SECRET,ALIAS);
   microgear.connect(APPID);
-  
+
   dht.begin();
 }
 
 void loop() {
 //  delay(2000);
-  
+
   if (microgear.connected()) {
         if (state_connect == 0) {
           Serial.println("connected");
@@ -86,7 +86,7 @@ void loop() {
         if (timer >= 1000) {
             int humid = dht.readHumidity();
             int temp = dht.readTemperature();
-            
+
             if (isnan(humid) || isnan(temp)) {
               Serial.println("Failed to read from DHT sensor!");
 //              return;
@@ -98,10 +98,10 @@ void loop() {
               root.printTo(buffer, sizeof(buffer));
               Serial.println(buffer);
               Serial.println();
-              microgear.chat("html-test",buffer);
+              microgear.chat(ALIAS,buffer);
               Serial.println("Publish.");
             }
-          
+
             timer = 0;
         } else {
           timer += 100;
@@ -112,8 +112,8 @@ void loop() {
             microgear.connect(APPID);
             timer = 0;
             state_connect = 0;
-        } else { 
-          timer += 100; 
+        } else {
+          timer += 100;
         }
     }
     delay(100);
