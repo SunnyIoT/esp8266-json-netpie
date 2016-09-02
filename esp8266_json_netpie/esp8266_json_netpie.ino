@@ -4,23 +4,23 @@
 #include <MicroGear.h>
 
 /* Setting WIFI */
-const char* ssid            = "MAXNET";
-const char* password        = "macrol3ios";
+const char* ssid              = "MAXNET";
+const char* password          = "macrol3ios";
 
 /* Setting NETPIE */
-#define APPID               "WebApp"
-#define KEY                 "kuZyWfJrig1mb7E"
-#define SECRET              "ZNMyde0RNtPR04SUz2kLS0woM"
-char ALIAS[15]              = "14365118"; // Change your serial number device
-char html_alias[15]         = "html_";
+#define APPID                 "WebApp"
+#define KEY                   "kuZyWfJrig1mb7E"
+#define SECRET                "ZNMyde0RNtPR04SUz2kLS0woM"
+char ALIAS[15]                = "14365118"; // Change your serial number device
+char html_alias[15]           = "html_";
 
-String netpie_incoming_text = "\0";
-int secure_incoming_text = 0;
+String netpie_incoming_text   = "\0";
+int secure_incoming_text      = 0;
 
 EspClass Esp;
 
 WiFiClient client;
-int timer = 0, state_connect = 0, state_change_alias = 0;
+int timer = 0, state_connect  = 0, state_change_alias = 0;
 MicroGear microgear(client);
 
 /* Setting DHT22 */
@@ -30,10 +30,10 @@ DHT dht(DHTPIN, DHTTYPE);
 
 /* Setting JSON */
 StaticJsonBuffer<200> jsonExportBuffer;
-JsonObject& json_export = jsonExportBuffer.createObject();
+JsonObject& json_export       = jsonExportBuffer.createObject();
 
 StaticJsonBuffer<200> jsonIncomingBuffer;
-JsonObject& json_incoming = jsonIncomingBuffer.createObject();
+JsonObject& json_incoming     = jsonIncomingBuffer.createObject();
 
 /* Function NETPIE */
 void onMsghandler(char *topic, uint8_t* msg, unsigned int msglen) {
@@ -182,4 +182,5 @@ void loop() {
         }
     }
     delay(100);
+    
 }
