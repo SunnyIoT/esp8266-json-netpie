@@ -4,8 +4,8 @@
 #include <MicroGear.h>
 
 /* Setting WIFI */
-const char* ssid              = "MAXNET";
-const char* password          = "macrol3ios";
+const char* ssid              = "@ESPertAP_001";
+const char* password          = "espertap";
 
 /* Setting NETPIE */
 #define APPID                 "WebApp"
@@ -49,7 +49,10 @@ void onMsghandler(char *topic, uint8_t* msg, unsigned int msglen) {
   
       /* Compare value */
       if (json_incoming["set_temp"] != NULL) {
-        Serial.println("temp : 23 done.");
+        Serial.println("debug receiver json");
+        
+        // insert your function
+        
         secure_incoming_text = 1; // state secure data
       }
 
@@ -75,6 +78,20 @@ void onMsghandler(char *topic, uint8_t* msg, unsigned int msglen) {
       }
 
       if (json_incoming["set_off_water"] != NULL) {
+
+        // insert your function
+        
+        secure_incoming_text = 1; // state secure data
+      }
+
+      if (json_incoming["set_off_water"] != NULL) {
+
+        // insert your function
+        
+        secure_incoming_text = 1; // state secure data
+      }
+
+      if (json_incoming["set_water"] != NULL) {
 
         // insert your function
         
